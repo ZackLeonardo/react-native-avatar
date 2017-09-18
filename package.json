@@ -1,5 +1,5 @@
 {
-  "name": "react-native-avatar",
+  "name": "@zdy/react-native-avatar",
   "version": "1.0.0",
   "description": "avatar",
   "main": "index.js",

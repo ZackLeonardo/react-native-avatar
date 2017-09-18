@@ -2,13 +2,14 @@
 react native avatar component
 
 ## Installation
-
+(for myself in private npm store)
 ```
-npm install --save react-native-avatar
+yarn add @zdy/react-native-avatar
 ```
-
-## Usage
-
+(for everyone)
+```
+yarn add file:/...path.../react-native-avatar
+```
 
 ## Example
 

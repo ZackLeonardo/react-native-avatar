@@ -5,7 +5,7 @@ import {
   View,
 } from 'react-native';
 
-import Avatar from 'react-native-avatar';
+import Avatar from '@zdy/react-native-avatar';
 
 export default class Test extends React.Component {
   render() {
