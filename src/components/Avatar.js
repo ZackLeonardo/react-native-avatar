@@ -35,7 +35,7 @@ class Avatar extends Component{
     if (this.props.avatarCarrier.avatar){
       return(
         <TouchableOpacity
-          style={styles.containerStyle}
+          style={[styles.containerStyle, this.props.avatarContainerStyle]}
           disabled={this.props.onPress ? false : true}
           onPress={this.props.onPress}
           accessibilityTraits = "image">
@@ -56,7 +56,8 @@ class Avatar extends Component{
         showThisName = showThisName.slice(0, this.props.showNameLength - 1).concat('...');
       }
       return (
-        <Text style={[styles.textStyle, this.props.textStyle]}>
+        <Text
+          style={[styles.textStyle, this.props.textStyle]} allowFontScaling={false}>
           {showThisName}
         </Text>
       );
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
   },
   textStyle:{
     color: 'black',
-    fontSize: 16,
+    fontSize: 12,
     backgroundColor: 'transparent',
     fontWeight: '100',
   }
@@ -98,11 +99,12 @@ Avatar.defaultProps = {
   textStyle: null,
   onPress: null,
   showName: false,
-  showNameLength: 5,
+  showNameLength: 200,
 };
 
 Avatar.propTypes = {
   avatarCarrier: PropTypes.object,
+  avatarContainerStyle: ViewPropTypes.style,
   avatarStyle: ViewPropTypes.style,
   textStyle: Text.propTypes.style,
   onPress: PropTypes.func,
