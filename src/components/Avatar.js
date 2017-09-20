@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 12,
     backgroundColor: 'transparent',
-    fontWeight: '100',
+    fontWeight: 'normal',
   }
 
 });
