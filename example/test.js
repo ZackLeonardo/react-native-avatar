@@ -10,6 +10,7 @@ import Avatar from '@zdy/react-native-avatar';
 export default class Test extends React.Component {
   render() {
     const avatarProps = {
+      id: 1,
       avatar: 'https://img3.doubanio.com/img/fmadmin/large/31905.jpg',
       name: 'reactreara',
       showName: true,
@@ -22,7 +23,11 @@ export default class Test extends React.Component {
     return (
       <View style={styles.container}>
         <Text>avatar show bellow.</Text>
-        <Avatar {...avatarProps} />
+        <Avatar
+          {...avatarProps}
+          onAvatarPress={(props)=>{console.log('onAvatarPress :'+ props.avatar + '-'+ props.name+ '-'+ props.id);}}
+
+         />
       </View>
     );
   }

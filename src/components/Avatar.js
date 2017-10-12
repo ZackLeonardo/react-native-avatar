@@ -17,41 +17,25 @@ import {
 import PropTypes from 'prop-types';
 
 class Avatar extends Component{
-  render(){
-    //头像、名称都没有，则显示默认
-    if (!this.props.avatar && !this.props.name){
-      return (
-        <View
-          style={[
-            styles.avatarStyle,
-            {backgroundColor: '#B0C4DE'},
-            this.props.avatarStyle
-          ]}
-          accessibilityTraits = "image"
-        />
-      );
-    }
-    //有头像，则显示头像，根据props设置决定点击事件以及是否显示名字（名字不能长于头像宽度，长于后截取）
-    if (this.props.avatar){
-      return(
-        <TouchableOpacity
-          style={[styles.containerStyle, this.props.avatarContainerStyle]}
-          disabled={this.props.onPress ? false : true}
-          onPress={this.props.onPress}
-          accessibilityTraits = "image">
-          <Image
-            style={[styles.avatarStyle,  this.props.avatarStyle]}
-            source={{uri: this.props.avatar}}
-          />
-          {this.renderAvatarName()}
-        </TouchableOpacity>
-      );
-    }
+  constructor(props){
+    super(props);
+
+    this._avatarPress = this._avatarPress.bind(this);
+  }
+
+  renderDefaultAvatar(){
+    return (<View
+      style={[
+        styles.avatarStyle,
+        {backgroundColor: '#B0C4DE'},
+        this.props.avatarStyle
+      ]}
+    />);
   }
 
   renderAvatarName(){
     if (this.props.showName == true){
-      var showThisName = this.props.name;
+      var showThisName = this.props.name ? this.props.name : '';
       if (showThisName.length > this.props.showNameLength){
         showThisName = showThisName.slice(0, this.props.showNameLength - 1).concat('...');
       }
@@ -64,8 +48,29 @@ class Avatar extends Component{
     }
     return null;
   }
-}
 
+  _avatarPress(){
+    if (this.props.onAvatarPress){
+      this.props.onAvatarPress(this.props);
+    }
+  }
+
+  render(){
+    return(
+      <TouchableOpacity
+        style={[styles.containerStyle, this.props.avatarContainerStyle]}
+        disabled={this.props.onAvatarPress ? false : true}
+        onPress={this._avatarPress}
+        accessibilityTraits = "image">
+        {this.props.avatar ? <Image
+          style={[styles.avatarStyle,  this.props.avatarStyle]}
+          source={{uri: this.props.avatar}}
+        /> : this.renderDefaultAvatar()}
+        {this.renderAvatarName()}
+      </TouchableOpacity>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   containerStyle:{
@@ -90,8 +95,6 @@ const styles = StyleSheet.create({
 
 Avatar.defaultProps = {
   avatarStyle: {backgroundColor: '#faebd7'},
-  textStyle: null,
-  onPress: null,
   showName: false,
   showNameLength: 200,
 };
@@ -102,7 +105,7 @@ Avatar.propTypes = {
   avatarContainerStyle: ViewPropTypes.style,
   avatarStyle: ViewPropTypes.style,
   textStyle: Text.propTypes.style,
-  onPress: PropTypes.func,
+  onAvatarPress: PropTypes.func,
   showName: PropTypes.bool,
   showNameLength: PropTypes.number,
 };
