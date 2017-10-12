@@ -19,12 +19,12 @@ import PropTypes from 'prop-types';
 class Avatar extends Component{
   render(){
     //头像、名称都没有，则显示默认
-    if (!this.props.avatarCarrier.avatar && !this.props.avatarCarrier.name){
+    if (!this.props.avatar && !this.props.name){
       return (
         <View
           style={[
             styles.avatarStyle,
-            {backgroundColor: 'transparent'},
+            {backgroundColor: '#B0C4DE'},
             this.props.avatarStyle
           ]}
           accessibilityTraits = "image"
@@ -32,7 +32,7 @@ class Avatar extends Component{
       );
     }
     //有头像，则显示头像，根据props设置决定点击事件以及是否显示名字（名字不能长于头像宽度，长于后截取）
-    if (this.props.avatarCarrier.avatar){
+    if (this.props.avatar){
       return(
         <TouchableOpacity
           style={[styles.containerStyle, this.props.avatarContainerStyle]}
@@ -41,7 +41,7 @@ class Avatar extends Component{
           accessibilityTraits = "image">
           <Image
             style={[styles.avatarStyle,  this.props.avatarStyle]}
-            source={{uri: this.props.avatarCarrier.avatar}}
+            source={{uri: this.props.avatar}}
           />
           {this.renderAvatarName()}
         </TouchableOpacity>
@@ -51,7 +51,7 @@ class Avatar extends Component{
 
   renderAvatarName(){
     if (this.props.showName == true){
-      var showThisName = this.props.avatarCarrier.name;
+      var showThisName = this.props.name;
       if (showThisName.length > this.props.showNameLength){
         showThisName = showThisName.slice(0, this.props.showNameLength - 1).concat('...');
       }
@@ -89,12 +89,6 @@ const styles = StyleSheet.create({
 });
 
 Avatar.defaultProps = {
-  avatarCarrier: {
-    avatar: null,
-    name: null,
-    // avatar: 'https://facebook.github.io/react/img/logo_og.png',
-    // name: 'reactreara',
-  },
   avatarStyle: {backgroundColor: '#faebd7'},
   textStyle: null,
   onPress: null,
@@ -103,7 +97,8 @@ Avatar.defaultProps = {
 };
 
 Avatar.propTypes = {
-  avatarCarrier: PropTypes.object,
+  avatar: PropTypes.string,
+  name: PropTypes.string,
   avatarContainerStyle: ViewPropTypes.style,
   avatarStyle: ViewPropTypes.style,
   textStyle: Text.propTypes.style,

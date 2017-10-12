@@ -10,10 +10,8 @@ import Avatar from '@zdy/react-native-avatar';
 export default class Test extends React.Component {
   render() {
     const avatarProps = {
-      avatarCarrier: {
-        avatar: 'https://facebook.github.io/react/img/logo_og.png',
-        name: 'reactreara',
-      },
+      avatar: 'https://img3.doubanio.com/img/fmadmin/large/31905.jpg',
+      name: 'reactreara',
       showName: true,
       showNameLength: 100,
       avatarStyle: {
