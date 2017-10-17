@@ -35,13 +35,16 @@ class Avatar extends Component{
 
   renderAvatarName(){
     if (this.props.showName == true){
-      var showThisName = this.props.name ? this.props.name : '';
-      if (showThisName.length > this.props.showNameLength){
+      var showThisName = this.props.name ? this.props.name : '无昵称';
+      let showThisNameLength = showThisName.length + (showThisName.match(/[^\x00-\xff]/g) || "").length;
+      if (showThisNameLength > this.props.showNameLength){
+        // 尚不兼容中文
         showThisName = showThisName.slice(0, this.props.showNameLength - 1).concat('...');
       }
       return (
         <Text
-          style={[styles.textStyle, this.props.textStyle]} allowFontScaling={false}>
+          style={[styles.textStyle, this.props.textStyle]} allowFontScaling={false}
+          numberOfLines={this.props.numberOfNameLines}>
           {showThisName}
         </Text>
       );
@@ -96,6 +99,7 @@ const styles = StyleSheet.create({
 Avatar.defaultProps = {
   avatarStyle: {backgroundColor: '#faebd7'},
   showName: false,
+  numberOfNameLines: 2,
   showNameLength: 200,
 };
 
@@ -108,6 +112,7 @@ Avatar.propTypes = {
   onAvatarPress: PropTypes.func,
   showName: PropTypes.bool,
   showNameLength: PropTypes.number,
+  numberOfNameLines: PropTypes.number,
 };
 
 module.exports = Avatar;
