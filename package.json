@@ -1,6 +1,6 @@
 {
   "name": "@zdy/react-native-avatar",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "avatar",
   "main": "index.js",
   "author": "zackLeonardo <maiz9088@icloud.com>",
@@ -8,5 +8,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ZackLeonardo/react-native-avatar.git"
+  },
+  "dependencies": {
+    "react-native-lightbox": "^0.7.0"
   }
 }

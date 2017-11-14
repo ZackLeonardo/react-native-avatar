@@ -13,8 +13,11 @@ import {
   Image,
   Text,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 import PropTypes from 'prop-types';
+
+import Lightbox from 'react-native-lightbox';
 
 class Avatar extends Component{
   constructor(props){
@@ -31,6 +34,27 @@ class Avatar extends Component{
         this.props.avatarStyle
       ]}
     />);
+  }
+
+  renderAvatar(){
+    const { width, height } = Dimensions.get('window');
+    return (this.props.lightbox ?
+      <Lightbox
+        activeProps = {{
+          style:[styles.avatarImageActiveStyle, { width, height}]
+        }}
+        >
+        <Image
+          style={[styles.avatarStyle,  this.props.avatarStyle]}
+          source={{uri: this.props.avatar}}
+        />
+      </Lightbox>
+      :
+      <Image
+        style={[styles.avatarStyle,  this.props.avatarStyle]}
+        source={{uri: this.props.avatar}}
+      />
+    );
   }
 
   renderAvatarName(){
@@ -65,10 +89,7 @@ class Avatar extends Component{
         disabled={this.props.onAvatarPress ? false : true}
         onPress={this._avatarPress}
         accessibilityTraits = "image">
-        {this.props.avatar ? <Image
-          style={[styles.avatarStyle,  this.props.avatarStyle]}
-          source={{uri: this.props.avatar}}
-        /> : this.renderDefaultAvatar()}
+        {this.props.avatar ? this.renderAvatar() : this.renderDefaultAvatar()}
         {this.renderAvatarName()}
       </TouchableOpacity>
     );
@@ -86,6 +107,9 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 5,
+  },
+  avatarImageActiveStyle:{
+    resizeMode: 'contain',
   },
   textStyle:{
     color: 'black',
@@ -113,6 +137,7 @@ Avatar.propTypes = {
   showName: PropTypes.bool,
   showNameLength: PropTypes.number,
   numberOfNameLines: PropTypes.number,
+  lightbox: PropTypes.bool,
 };
 
 module.exports = Avatar;
